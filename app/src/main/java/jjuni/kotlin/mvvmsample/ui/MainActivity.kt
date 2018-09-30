@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.Observable
 import androidx.databinding.ObservableField
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -31,6 +32,8 @@ class MainActivity : ArchitectureActivity<ActivityMainBinding, MainViewModel>() 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         viewDataBinding.let {
             it.setLifecycleOwner(this)
             it.viewModel = viewModel
@@ -44,7 +47,13 @@ class MainActivity : ArchitectureActivity<ActivityMainBinding, MainViewModel>() 
 
         viewModel.getSearchPhotos()
 
-        viewModel.error.addOnPropertyChanged { Toast.makeText(this, it.get(), Toast.LENGTH_SHORT).show() }
+        viewModel.error.observe(this@MainActivity, Observer<String> {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
+
+        // ObservableField 사용 시
+        // viewModel.error.addOnPropertyChanged { Toast.makeText(this, it.get(), Toast.LENGTH_SHORT).show() }
+
 
     }
 

@@ -10,7 +10,10 @@ import jjuni.kotlin.mvvmsample.ui.adapter.MainRecyclerAdapter
  */
 
 @BindingAdapter("bind:item")
-fun bindItem(recyclerView: RecyclerView, olduser: ArrayList<Photo>) {
+fun bindItem(recyclerView: RecyclerView, olduser: ArrayList<Photo>?) {
     val adapter: MainRecyclerAdapter = recyclerView.adapter as MainRecyclerAdapter
-    adapter.loadItem(olduser)
+    olduser?.let {
+        adapter.loadItem(it)
+    }
+
 }

@@ -21,12 +21,20 @@ import jjuni.kotlin.mvvmsample.util.ApiException
 
 class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
 
-    val progress =  ObservableField<Boolean>()
-    val error = ObservableField<String>()
-    val photoItems = ObservableArrayList<Photo>()
+//    val progress =  ObservableField<Boolean>()
+//    val error = ObservableField<String>()
+//    val photoItems = ObservableArrayList<Photo>()
+
+    private val _progress =  MutableLiveData<Boolean>()
+    private val _error = MutableLiveData<String>()
+    private val _photoItems = MutableLiveData<ArrayList<Photo>>()
+
+    val progress:  LiveData<Boolean> get() = _progress
+    val error: LiveData<String> get() = _error
+    val photoItems: LiveData<ArrayList<Photo>> get() = _photoItems
 
     fun getSearchPhotos() {
-        progress.set(true)
+        _progress.value = true
         compositeDisposable.add(repository.getSearchPhotos("json", "1",
                 "flickr.photos.search", "love", BuildConfig.FLICKR_API_KEY, 1,
                 200)
@@ -44,13 +52,14 @@ class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
                     }
 
                     override fun onSuccess(items: PhotoResponse) {
-                        progress.set(false)
-                        photoItems.addAll(items.photos.photo)
+                        _progress.value = false
+                        _photoItems.value = items.photos.photo
+//                        photoItems.addAll(items.photos.photo)
                     }
 
                     override fun onError(e: Throwable) {
-                        progress.set(false)
-                        error.set(e.message)
+                        _progress.value = false
+                        _error.value = e.message
                     }
 
                 })
