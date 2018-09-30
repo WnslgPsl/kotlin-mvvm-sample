@@ -11,7 +11,7 @@ import jjuni.kotlin.mvvmsample.data.MainRepository
 class MainViewModelFatory(private val repository: MainRepository) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return modelClass.getConstructor(Long::class.java).newInstance(repository)
+        return modelClass.getConstructor(MainRepository::class.java).newInstance(repository)
     }
 
 
