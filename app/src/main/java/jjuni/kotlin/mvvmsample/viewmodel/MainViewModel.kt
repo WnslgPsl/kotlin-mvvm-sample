@@ -21,9 +21,12 @@ import jjuni.kotlin.mvvmsample.util.ApiException
 
 class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
 
-    val progress =  ObservableField<Boolean>()
+    private val progress =  ObservableField<Boolean>()
     val error = ObservableField<String>()
     val photoItems = ObservableArrayList<Photo>()
+
+
+
 
     fun getSearchPhotos() {
         progress.set(true)
@@ -50,7 +53,6 @@ class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
 
                     override fun onError(e: Throwable) {
                         progress.set(false)
-                        Log.d("seongjun_error", e.message);
                         error.set(e.message)
                     }
 
