@@ -21,12 +21,9 @@ import jjuni.kotlin.mvvmsample.util.ApiException
 
 class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
 
-    private val progress =  ObservableField<Boolean>()
+    val progress =  ObservableField<Boolean>()
     val error = ObservableField<String>()
     val photoItems = ObservableArrayList<Photo>()
-
-
-
 
     fun getSearchPhotos() {
         progress.set(true)
