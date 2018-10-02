@@ -1,5 +1,6 @@
 package jjuni.kotlin.mvvmsample.util
 
+import android.util.Log
 import androidx.databinding.Observable
 import io.reactivex.disposables.Disposables
 
@@ -18,6 +19,10 @@ fun Int.ApiException(): Exception {
         }
     }
     return Exception(errorMsg)
+}
+
+inline infix fun String.e(message: String) {
+    Log.e(this, message)
 }
 
 fun <T : Observable> T.addOnPropertyChanged(callback: (T) -> Unit) =
