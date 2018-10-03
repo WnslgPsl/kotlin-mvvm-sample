@@ -17,13 +17,16 @@ import jjuni.kotlin.mvvmsample.ui.base.ArchitectureActivity
 import jjuni.kotlin.mvvmsample.util.addOnPropertyChanged
 import jjuni.kotlin.mvvmsample.viewmodel.MainViewModel
 import jjuni.kotlin.mvvmsample.viewmodel.MainViewModelFatory
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : ArchitectureActivity<ActivityMainBinding, MainViewModel>() {
     override fun getLayoutResId(): Int = R.layout.activity_main
 
-    override val viewModel: MainViewModel by lazy {
-        ViewModelProviders.of(this, MainViewModelFatory(MainRepository())).get(MainViewModel::class.java)
-    }
+//    override val viewModel: MainViewModel by lazy {
+//        ViewModelProviders.of(this, MainViewModelFatory(MainRepository())).get(MainViewModel::class.java)
+//    }
+
+    override val viewModel by viewModel<MainViewModel>()
 
     private val mainAdapter: MainRecyclerAdapter by lazy {
         MainRecyclerAdapter(viewModel)
