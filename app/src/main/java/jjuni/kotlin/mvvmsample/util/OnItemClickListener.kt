@@ -4,7 +4,7 @@ package jjuni.kotlin.mvvmsample.util
  * Created by Jo on 2018. 9. 29.
  */
 
-interface OnItemClickListener {
+interface OnItemClickListener<T> {
 
-    var onItemClicked: (Int) -> Unit
+    fun onItemClicked(t: T)
 }

@@ -1,6 +1,7 @@
 package jjuni.kotlin.mvvmsample.viewmodel
 
 import android.util.Log
+import android.widget.Toast
 import androidx.databinding.ObservableArrayList
 import androidx.databinding.ObservableField
 import androidx.lifecycle.LiveData
@@ -14,12 +15,13 @@ import jjuni.kotlin.mvvmsample.data.Photo
 import jjuni.kotlin.mvvmsample.data.PhotoResponse
 import jjuni.kotlin.mvvmsample.ui.base.BaseViewModel
 import jjuni.kotlin.mvvmsample.util.ApiException
+import jjuni.kotlin.mvvmsample.util.OnItemClickListener
 
 /**
  * Created by Jo on 2018. 8. 1.
  */
 
-class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
+class MainViewModel(private val repository: MainRepository) : BaseViewModel(), OnItemClickListener<Photo>{
 
 //    val progress =  ObservableField<Boolean>()
 //    val error = ObservableField<String>()
@@ -28,10 +30,12 @@ class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
     private val _progress =  MutableLiveData<Boolean>()
     private val _error = MutableLiveData<String>()
     private val _photoItems = MutableLiveData<ArrayList<Photo>>()
+    private val _toast = MutableLiveData<String>()
 
     val progress:  LiveData<Boolean> get() = _progress
     val error: LiveData<String> get() = _error
     val photoItems: LiveData<ArrayList<Photo>> get() = _photoItems
+    val toast: LiveData<String> get() = _toast
 
     fun getSearchPhotos() {
         _progress.value = true
@@ -64,5 +68,9 @@ class MainViewModel(private val repository: MainRepository) : BaseViewModel() {
 
                 })
         )
+    }
+
+    override fun onItemClicked(t: Photo) {
+        _toast.value = t.title
     }
 }

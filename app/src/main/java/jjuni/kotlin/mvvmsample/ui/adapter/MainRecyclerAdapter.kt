@@ -15,7 +15,7 @@ import jjuni.kotlin.mvvmsample.util.UserDiffCallback
  * Created by Jo on 2018. 9. 29.
  */
 
-class MainRecyclerAdapter : RecyclerView.Adapter<CustomRecyclerViewHolder<ArrayList<Photo>>>(){
+class MainRecyclerAdapter(private val onItemClickListener: OnItemClickListener<Photo>) : RecyclerView.Adapter<CustomRecyclerViewHolder<ArrayList<Photo>>>(){
 
     private var items = arrayListOf<Photo>()
 
@@ -25,7 +25,7 @@ class MainRecyclerAdapter : RecyclerView.Adapter<CustomRecyclerViewHolder<ArrayL
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomRecyclerViewHolder<ArrayList<Photo>> {
         val binding: MainPhotoItemBinding = MainPhotoItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return MainPhotoViewHolder(binding)
+        return MainPhotoViewHolder(binding, onItemClickListener)
     }
 
     override fun onBindViewHolder(holder: CustomRecyclerViewHolder<ArrayList<Photo>>, position: Int) {

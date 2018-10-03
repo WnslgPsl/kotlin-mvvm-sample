@@ -26,13 +26,11 @@ class MainActivity : ArchitectureActivity<ActivityMainBinding, MainViewModel>() 
     }
 
     private val mainAdapter: MainRecyclerAdapter by lazy {
-        MainRecyclerAdapter()
+        MainRecyclerAdapter(viewModel)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
         viewDataBinding.let {
             it.setLifecycleOwner(this)
@@ -48,6 +46,10 @@ class MainActivity : ArchitectureActivity<ActivityMainBinding, MainViewModel>() 
         viewModel.getSearchPhotos()
 
         viewModel.error.observe(this@MainActivity, Observer<String> {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        })
+
+        viewModel.toast.observe(this@MainActivity, Observer<String> {
             Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
         })
 

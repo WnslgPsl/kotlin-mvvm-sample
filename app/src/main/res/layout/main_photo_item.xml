@@ -5,9 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <variable
-            name="viewModel"
-            type="jjuni.kotlin.mvvmsample.viewmodel.ItemViewModel" />
+        <!--<variable-->
+            <!--name="viewModel"-->
+            <!--type="jjuni.kotlin.mvvmsample.viewmodel.ItemViewModel" />-->
+
+        <variable name="item" type="jjuni.kotlin.mvvmsample.data.Photo"/>
+        <variable name="listener" type="jjuni.kotlin.mvvmsample.util.OnItemClickListener"/>
     </data>
 
 
@@ -20,7 +23,8 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:onClick="@{() -> viewModel.getTitle(viewModel.item.title)}"
+                bind:image="@{item.getPhotoURL()}"
+                android:onClick="@{() -> listener.onItemClicked(item)}"
                 android:id="@+id/iv_main_photo_item"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
